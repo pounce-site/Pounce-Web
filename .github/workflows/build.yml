@@ -12,7 +12,8 @@ jobs:
 
     env:
       OUTPUT_FILE: version.txt
-      SIGNATURE_FILE: version.txt.sig
+      ARCHIVE_FILE: pounce-build.zip
+      SIGNATURE_FILE: pounce-build.sig
 
     steps:
       - name: 📥 Checkout Repo
@@ -47,6 +48,10 @@ jobs:
             exit 1
           fi
 
+      - name: 📦 Package entire build into a zip archive
+        run: |
+          zip -r $ARCHIVE_FILE $OUTPUT_FILE index.html
+
       - name: 🔐 Import GPG Private Key
         run: |
           echo "$GPG_PRIV_KEY" | gpg --batch --import
@@ -60,20 +65,19 @@ jobs:
           
       - name: 🖋️ Sign the Build
         run: |
-          echo "$GPG_PRIV_PASS" | gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 --armor --output "$SIGNATURE_FILE" --detach-sign "$OUTPUT_FILE"
+          echo "$GPG_PRIV_PASS" | gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 --armor --output "$SIGNATURE_FILE" --detach-sign "$ARCHIVE_FILE"
         env:
           GPG_PRIV_PASS: ${{ secrets.GPG_PRIV_PASS }}
 
       - name: ✅ Verify GPG Signature
         run: |
-          gpg --verify "$SIGNATURE_FILE" "$OUTPUT_FILE"
+          gpg --verify "$SIGNATURE_FILE" "$ARCHIVE_FILE"
 
       - name: 📦 Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: pounce-build
           path: |
-            ${{ env.OUTPUT_FILE }}
+            ${{ env.ARCHIVE_FILE }}
             ${{ env.SIGNATURE_FILE }}
-            index.html
           if-no-files-found: error
