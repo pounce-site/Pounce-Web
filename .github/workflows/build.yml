@@ -73,6 +73,7 @@ jobs:
         with:
           name: pounce-build
           path: |
-            $OUTPUT_FILE
-            $SIGNATURE_FILE
+            ${{ env.OUTPUT_FILE }}
+            ${{ env.SIGNATURE_FILE }}
             index.html
+          if-no-files-found: error
