@@ -12,8 +12,8 @@ jobs:
 
     env:
       OUTPUT_FILE: version.txt
-      ARCHIVE_FILE: pounce-build.zip
-      SIGNATURE_FILE: pounce-build.sig
+      ARCHIVE_FILE: source.zip
+      SIGNATURE_FILE: source.sig
 
     steps:
       - name: 📥 Checkout Repo
