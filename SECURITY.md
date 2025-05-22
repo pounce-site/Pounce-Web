@@ -1,6 +1,6 @@
 # Security Policy for Pounce
 
-Thank you for your interest in the security of **Pounce**. This document outlines how to report vulnerabilities, our security practices, and what contributors should know to help keep the project secure.
+Thank you for your interest in the security of **Pounce**. This document outlines how to report vulnerabilities.
 
 ## Supported Versions
 
