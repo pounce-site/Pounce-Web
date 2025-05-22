@@ -49,7 +49,7 @@ jobs:
 
       - name: 🔐 Import GPG Private Key
         run: |
-          echo "$GPG_PRIV_KEY" | gpg --batch --import
+          echo "${{ secrets.GPG_PRIV_KEY}}" | gpg --batch --import
 
       - name: 🖋️ Sign the Build
         run: |
