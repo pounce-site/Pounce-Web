@@ -1,0 +1,69 @@
+name: Tamper-Proof Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  secure-build:
+    runs-on: ubuntu-latest
+
+    env:
+      OUTPUT_FILE: version.txt
+      SIGNATURE_FILE: version.txt.sig
+
+    steps:
+      - name: 📥 Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: 🏷️ Generate Unique Build Metadata
+        run: |
+          BUILD_ID="pounce-$(date +'%Y%m%d')-${{ github.run_number }}"
+          COMMIT_HASH=$(git rev-parse --short HEAD)
+          TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          echo "BUILD_ID=$BUILD_ID" >> $GITHUB_ENV
+          echo "COMMIT_HASH=$COMMIT_HASH" >> $GITHUB_ENV
+          echo "TIMESTAMP=$TIMESTAMP" >> $GITHUB_ENV
+
+      - name: ✍️ Create Watermark File
+        run: |
+          echo "Pounce Official Build" > $OUTPUT_FILE
+          echo "Build ID: $BUILD_ID" >> $OUTPUT_FILE
+          echo "Commit: $COMMIT_HASH" >> $OUTPUT_FILE
+          echo "Timestamp: $TIMESTAMP" >> $OUTPUT_FILE
+
+      - name: ✒️ Inject Watermark into index.html
+        run: |
+          if [ -f index.html ]; then
+            echo "<!-- Build ID: $BUILD_ID | Commit: $COMMIT_HASH -->" >> index.html
+          fi
+
+      - name: ❌ Fail if watermark is missing
+        run: |
+          if ! grep -rq "$BUILD_ID" .; then
+            echo "❌ ERROR: Watermark ($BUILD_ID) not found in build output."
+            exit 1
+          fi
+
+      - name: 🔐 Import GPG Private Key
+        run: |
+          echo "$GPG_PRIV_KEY" | gpg --batch --import
+
+      - name: 🖋️ Sign the Build
+        run: |
+          gpg --batch --yes --armor --output "$SIGNATURE_FILE" --detach-sign "$OUTPUT_FILE"
+
+      - name: ✅ Verify GPG Signature
+        run: |
+          gpg --verify "$SIGNATURE_FILE" "$OUTPUT_FILE"
+
+      - name: 📦 Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: pounce-build
+          path: |
+            $OUTPUT_FILE
+            $SIGNATURE_FILE
+            index.html
