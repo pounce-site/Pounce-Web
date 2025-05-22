@@ -49,11 +49,15 @@ jobs:
 
       - name: 🔐 Import GPG Private Key
         run: |
-          echo "${{ secrets.GPG_PRIV_KEY}}" | gpg --batch --import
-
+          echo "$GPG_PRIV_KEY" | gpg --batch --import
+        env:
+          GPG_PRIV_KEY: ${{ secrets.GPG_PRIV_KEY }}
+          
       - name: 🖋️ Sign the Build
         run: |
-          gpg --batch --yes --armor --output "$SIGNATURE_FILE" --detach-sign "$OUTPUT_FILE"
+          echo "$GPG_PRIV_PASS" | gpg --batch --yes --passphrase-fd 0 --armor --output "$SIGNATURE_FILE" --detach-sign "$OUTPUT_FILE"
+        env:
+          GPG_PRIV_PASS: ${{ secrets.GPG_PRIV_PASS }}
 
       - name: ✅ Verify GPG Signature
         run: |
