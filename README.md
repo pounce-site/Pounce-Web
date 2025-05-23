@@ -25,7 +25,7 @@ Pounce is a social media platform built with a mission: to offer a welcoming, ac
 This code is publicly viewable **for trust and security**.  
 It is **not open source** and **may not be reused, copied, or modified** under any circumstances.
 
-Read the [`LICENSE`](./LICENSE) for full terms.
+Read the [`LICENSE`](./LICENSE.md) for full terms.
 
 ## 📫 Contact
 Reach out with questions, ideas, or support:  
