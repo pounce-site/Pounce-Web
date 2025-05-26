@@ -41,7 +41,7 @@ jobs:
 
       - name: ✒️ Inject Watermark into index.html
         run: |
-          if [ -f index.html ]; then
+          if [ -f www/pounce.site/index.html ]; then
             echo "<!-- Build ID: $BUILD_ID | Commit: $COMMIT_HASH -->" >> www/pounce.site/index.html
           fi
 
