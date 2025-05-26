@@ -54,7 +54,7 @@ jobs:
 
       - name: 📦 Package entire build into a zip archive
         run: |
-          zip -r $ARCHIVE_FILE $OUTPUT_FILE index.html
+          zip -r $ARCHIVE_FILE $OUTPUT_FILE index.html www
 
       - name: 🔐 Import GPG Private Key
         run: |
