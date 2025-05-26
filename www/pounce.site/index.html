@@ -1,5 +1,136 @@
-<html>
-  <body>
-    <h1>Hello, Tanshi</h1>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-scale=1.0, initial-scale=0.5 user-scalable=no">
+  <link rel="icon" href="logo.png">
+  <meta name="description" content="The Inclusive Social Media Platform">
+  <meta property="og:title" content="Pounce">
+  <meta property="og:type" content="website">
+  <meta property="og:description" content="The Inclusive Social Media Platform">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:image" content="https://pounce.site/banner2.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1920">
+  <meta property="og:image:height" content="1080">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pounce - Coming Soon</title>
+  <style>
+    :root {
+      --purple-dark: #4a1d8d;
+      --purple-medium: #6927c2;
+      --purple-light: #9a4cf0;
+      --sunset-orange: #f9a154;
+      --sunset-pink: #e75dbb;
+      --white: #ffffff;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      max-height: 100vh;
+      overflow: hidden;
+      overscroll-behavior: none;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--white);
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--purple-dark), var(--purple-medium), var(--purple-light));
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      max-width: 100vw;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .banner {
+      max-width: 300px;
+      width: 100%;
+      height: auto;
+      margin-bottom: 30px;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin: 0 0 30px;
+    }
+
+    p {
+      font-size: 1em;
+      margin: 0 0 30px;
+      max-width: 90vw;
+    }
+
+    .tagline {
+      background: linear-gradient(90deg, var(--sunset-orange), var(--sunset-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: bold;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.8em;
+      color: rgba(255, 255, 255, 0.6);
+      text-align: center;
+      width: 100%;
+      padding: 0 1rem;
+    }
+
+    .footer a {
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      margin: 0 8px;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+	
+	.line-height-adjust {
+        line-height: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <img src="banner.png" alt="Pounce Banner" class="banner">
+    <h1>Pounce is <span class="tagline">coming soon</span>!</h1>
+    <p  class="line-height-adjust">We're building a cozy, creative, and inclusive social space for furries, artists, plural folks, and everyone in between.
+      <br><br>
+      The site is currently under construction, but we're bouncing into your world soon!</p>
+  </div>
+
+  <div class="footer">
+    <div>
+      <a href="https://github.com/pounce-site" target="_blank">GitHub</a>
+      |
+      <a href="mailto:info@pounce.site">Email</a>
+      |
+      <a href="https://x.com/pounce_app" target="_blank">Twitter</a>
+    </div>
+    <div style="margin-top: 6px;">
+      &copy; 2025 Pounce. All rights reserved.
+    </div>
+  </div>
+</body>
 </html>
